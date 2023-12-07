@@ -24,7 +24,7 @@ jobs:
         run: |
           #!/bin/bash
 
-          gradleFilePath="build.gradle"
+          gradleFilePath="app/build.gradle"
           
           versionCode=$(grep versionCode $gradleFilePath | awk '{print $2}')
           newVersionCode=$((versionCode+1))
@@ -44,7 +44,7 @@ jobs:
 
       - name: Commit version code increment
         run: |
-          git add build.gradle
+          git add app/build.gradle
           git commit -m "Increment versionCode for build" || echo "No changes to commit"
         
       - name: Push changes
