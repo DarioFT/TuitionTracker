@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.darioft.tuitiontracker.models.Student
 import com.darioft.tuitiontracker.databinding.ItemStudentBinding
 
-class StudentAdapter(private var students: List<Student>, private val clickListener: (Student) -> Unit) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
+class StudentAdapter(public var students: List<Student>, private val clickListener: (Student) -> Unit) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
     class StudentViewHolder(private val binding: ItemStudentBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(student: Student, isFirstItem: Boolean = false) {
             binding.textViewName.text = student.name
@@ -31,5 +31,13 @@ class StudentAdapter(private var students: List<Student>, private val clickListe
     fun updateStudents(newStudents: List<Student>) {
         students = newStudents
         notifyDataSetChanged() // Notify the adapter that the data set has changed
+    }
+
+    fun updateStudentCredits(student: Student, newCredits: Int) {
+        val index = students.indexOfFirst { it.id == student.id }
+        if (index != -1) {
+            students[index].credits = newCredits
+            notifyItemChanged(index)
+        }
     }
 }
