@@ -25,11 +25,17 @@ jobs:
           #!/bin/bash
 
           gradleFilePath="build.gradle"
-
+          
           versionCode=$(grep versionCode $gradleFilePath | awk '{print $2}')
           newVersionCode=$((versionCode+1))
-
+          
+          echo "Current versionCode: $versionCode"
+          echo "New versionCode: $newVersionCode"
+          
           sed -i "s/versionCode $versionCode/versionCode $newVersionCode/" $gradleFilePath
+          
+          echo "Updated build.gradle:"
+          cat $gradleFilePath
 
       - name: Configure Git
         run: |
