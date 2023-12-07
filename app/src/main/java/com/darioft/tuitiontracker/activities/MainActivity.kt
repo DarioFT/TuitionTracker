@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         loadStudents()
 
-        binding.fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener {
             val intent = Intent(this, AddStudentActivity::class.java)
             startActivity(intent)
         }

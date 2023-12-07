@@ -159,5 +159,10 @@ class DatabaseHelper(context: Context) :
         db.close()
     }
 
+    fun deleteStudent(studentId: Int) {
+        val db = this.writableDatabase
+        db.delete("students", "id = ?", arrayOf(studentId.toString()))
+        db.close()
+    }
 
 }

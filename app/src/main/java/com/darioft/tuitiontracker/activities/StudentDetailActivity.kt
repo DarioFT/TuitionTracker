@@ -154,6 +154,22 @@ class StudentDetailActivity : AppCompatActivity() {
                 }
             }
             .setNegativeButton("Cancel", null)
+            .setNeutralButton("Delete") { _, _ ->
+                showDeleteConfirmationDialog(studentId)
+            }
+            .show()
+    }
+
+    private fun showDeleteConfirmationDialog(studentId: Int) {
+        AlertDialog.Builder(this)
+            .setTitle("Confirm Deletion")
+            .setMessage("Are you sure you want to delete this student?")
+            .setPositiveButton("Yes") { _, _ ->
+                val databaseHelper = DatabaseHelper(this)
+                databaseHelper.deleteStudent(studentId)
+                finish()
+            }
+            .setNegativeButton("No", null)
             .show()
     }
 
