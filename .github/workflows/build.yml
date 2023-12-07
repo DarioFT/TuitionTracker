@@ -20,6 +20,31 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
+      - name: Increment versionCode
+        run: |
+          #!/bin/bash
+
+          gradleFilePath="build.gradle"
+
+          versionCode=$(grep versionCode $gradleFilePath | awk '{print $2}')
+          newVersionCode=$((versionCode+1))
+
+          sed -i "s/versionCode $versionCode/versionCode $newVersionCode/" $gradleFilePath
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+
+      - name: Commit version code increment
+        run: |
+          git add build.gradle
+          git commit -m "Increment versionCode for build" || echo "No changes to commit"
+        
+      - name: Push changes
+        run: |
+          git push
+
       - name: Generate Release APK
         run: ./gradlew assembleRelease
       # 3
