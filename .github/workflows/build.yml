@@ -33,6 +33,11 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+      
+      # 3.5 Rename signed APK file
+      - name: Rename APK file
+        run: mv ${{ steps.sign_app.outputs.signedReleaseFile }} app/build/outputs/apk/release/release-signed.apk
+  
       # 4
       - uses: actions/upload-artifact@master
         with:
